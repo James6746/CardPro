@@ -46,7 +46,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (isInternetAvailable()) {
-//            addCardToApi(getOfflineCardsFromDatabase())
+            addCardToApi(getOfflineCardsFromDatabase())
+
+            offlineAddedCards.clear()
             getCardsFromApi()
         } else {
             cards.addAll(getCardsFromDatabase())
@@ -59,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         rvCards.adapter = adapter
     }
 
-    fun getCardsFromApi() {
+    private fun getCardsFromApi() {
         RetrofitHttp.cardService.getAllCards().enqueue(object : Callback<ArrayList<Card>> {
             override fun onResponse(
                 call: Call<ArrayList<Card>>,
@@ -68,6 +70,8 @@ class MainActivity : AppCompatActivity() {
                 if (response.body() != null) {
                     Log.d(TAG, "onREsponse: ${response.body()}")
                     saveToDatabase(response.body()!!)
+                    val list = response.body()!!
+                    cards.addAll(list)
                     refreshAdapter(getCardsFromDatabase())
 
                 } else {
@@ -76,7 +80,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ArrayList<Card>>, t: Throwable) {
-                Log.d(TAG, "onFailure: ${t.localizedMessage}")
+                Log.d(TAG, "onFailure: ${t}")
             }
 
         })
@@ -95,10 +99,10 @@ class MainActivity : AppCompatActivity() {
         return repository.getCards() as ArrayList<Card>
     }
 
-//    private fun getOfflineCardsFromDatabase(): ArrayList<Card> {
-//        val repository = CardRepository(application)
-//        return repository.getOfflineCards() as ArrayList<Card>
-//    }
+    private fun getOfflineCardsFromDatabase(): ArrayList<Card> {
+        val repository = CardRepository(application)
+        return repository.getOfflineCards(true) as ArrayList<Card>
+    }
 
     private fun isInternetAvailable(): Boolean {
         val manager = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -130,7 +134,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<Card>, t: Throwable) {
-                    Log.d(TAG, "onFailure: ${t.localizedMessage}")
+
                 }
 
             })

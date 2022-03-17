@@ -15,9 +15,9 @@ class CardRepository(application: Application) {
         return cardDao.getCards()
     }
 
-//    fun getOfflineCards(boolean: Boolean): List<Card>{
-//        return cardDao.getOfflineCards(boolean)
-//    }
+    fun getOfflineCards(boolean: Boolean): List<Card>{
+        return cardDao.getOfflineCards(boolean)
+    }
 
     fun saveCard(card: Card){
         cardDao.saveCard(card)
