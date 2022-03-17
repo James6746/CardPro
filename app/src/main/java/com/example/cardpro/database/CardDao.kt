@@ -15,6 +15,9 @@ interface CardDao {
     @Query("SELECT * FROM cards")
     fun getCards(): List<Card>
 
+//    @Query("SELECT * FROM cards WHERE isAvailable=:boolean")
+//    fun getOfflineCards(boolean: Boolean = true): List<Card>
+
     @Query("DELETE FROM cards")
     fun deleteAllCards()
 

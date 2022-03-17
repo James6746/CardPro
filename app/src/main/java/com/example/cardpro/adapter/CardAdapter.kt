@@ -21,7 +21,7 @@ class CardAdapter(var cards: ArrayList<Card>) : RecyclerView.Adapter<RecyclerVie
             holder.cardNumber.text = cards[position].cardNumber
             holder.cardExpireDate.text = cards[position].expireDate
             holder.cardCvv.text = cards[position].cvv.toString()
-            holder.imageView.setBackgroundResource(R.drawable.bk1)
+            holder.imageView.setBackgroundResource(R.drawable.bk2)
         }
     }
 

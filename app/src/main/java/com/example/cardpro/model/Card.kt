@@ -6,8 +6,8 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "cards")
 data class Card(
-    @PrimaryKey
-    val id: String,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int? = null,
     @SerializedName("card_name")
     val cardName: String? = null,
     @SerializedName("card_number")
@@ -15,7 +15,9 @@ data class Card(
 	@SerializedName("expire_date")
     val expireDate: String? = null,
 	@SerializedName("cvv")
-    val cvv: Int? = null
+    val cvv: Int? = null,
+    @SerializedName("is_available")
+    val isAvailable: Boolean = false
 
 )
 

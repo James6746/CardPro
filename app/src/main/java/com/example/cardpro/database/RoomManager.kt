@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.cardpro.model.Card
 import com.example.ogabekroomretrofit.database.CardDao
 
-@Database(entities = [Card::class], version = 2)
+@Database(entities = [Card::class], version = 5)
 abstract class RoomManager : RoomDatabase() {
 
     abstract fun cardDao(): CardDao
